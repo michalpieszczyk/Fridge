@@ -91,6 +91,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     zeskanowanyKod = result.getContents();
                     builder.setTitle("Wynik Skanowania  to: ");
 
+                    DatabaseReference myRef = database.getReference("Produkty");
+                    //myRef.addListenerForSingleValueEvent(valueEventListener);
+
+
+
+
+
+
+
                     builder.setPositiveButton("Dodaj do lodówki", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -114,7 +123,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }).setNegativeButton("Zabierz z lodówki", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            finish();
+
+                            DatabaseReference myRef = database.getReference("Stan");
+                            //DatabaseReference myRef = database.getReference("Stan");
+
+
+
                         }
                     });
 
