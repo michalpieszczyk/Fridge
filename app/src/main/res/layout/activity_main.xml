@@ -10,8 +10,25 @@
         android:id="@+id/scanBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="false"
+        android:layout_marginBottom="21dp"
+        android:layout_marginLeft="25dp"
+        android:background="#269e9e"
         android:text="Zeskanuj"
-        android:textSize="30sp" />
+        android:textSize="28sp" />
+
+
+    <Button
+        android:id="@+id/refreshBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="false"
+        android:layout_marginBottom="21dp"
+        android:layout_marginLeft="190dp"
+        android:background="#158a34"
+        android:text="Odśwież liste"
+        android:textSize="28sp" />
 
 </RelativeLayout>

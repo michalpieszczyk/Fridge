@@ -3,12 +3,14 @@ package com.example.qr;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -28,22 +30,32 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-
+    DatabaseReference reference;
     protected FirebaseDatabase database = FirebaseDatabase.getInstance();
     protected Button scanBtn;
+    protected Button refreshBtn;
     protected Date obecnaData;
     protected String zeskanowanyKod;
+
+    TextView a,b,c,d;
+    Member member;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //reference = FirebaseDatabase.getInstance().getReference();
+
         scanBtn = findViewById(R.id.scanBtn);
         scanBtn.setOnClickListener(this);
 
+        refreshBtn = findViewById(R.id.refreshBtn);
+        refreshBtn.setOnClickListener(this);
 
     }
+
+
 
 
     @Override
@@ -61,6 +73,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             integrator.initiateScan();
         }
 
+        private void refreshDb(){
+
+        //REFRESH
+
+        }
+
         @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data){
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -71,18 +89,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setMessage(result.getContents());
                     zeskanowanyKod = result.getContents();
-                    builder.setTitle("Wynik Skanowania  to "+zeskanowanyKod+" data: "+ obecnaData);
+                    builder.setTitle("Wynik Skanowania  to: ");
 
                     builder.setPositiveButton("Dodaj do lodówki", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            member = new Member();
+
                             DatabaseReference myRef = database.getReference("Stan");
                             Date dt = new Date();
-                            SimpleDateFormat simpleDate =  new SimpleDateFormat("dd/MM/yyyy");
+                            SimpleDateFormat simpleDate =  new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
                             String strDt = simpleDate.format(dt);
-                            //myRef.setValue(zeskanowanyKod+";"date);
-                            myRef.push().setValue(dt);
-                            myRef.child(zeskanowanyKod);
+
+                            member.setKodKreskowy(zeskanowanyKod);
+                            member.setObecnaData(strDt);
+
+                            myRef.push().setValue(member);
+
+                            Toast.makeText(getApplicationContext(),"Pomyślnie dodano produkt do lodówki",Toast.LENGTH_LONG).show();
+
+                            //myRef.child(strDt).setValue(zeskanowanyKod);
+
                         }
                     }).setNegativeButton("Zabierz z lodówki", new DialogInterface.OnClickListener() {
                         @Override
