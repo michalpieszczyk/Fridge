@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "527481817552",
+    "firebase_url": "https://yourfridge-4e935.firebaseio.com",
+    "project_id": "yourfridge-4e935",
+    "storage_bucket": "yourfridge-4e935.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:527481817552:android:e9e042537d645a7aee51d5",
+        "android_client_info": {
+          "package_name": "com.example.qr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "527481817552-5simbkor7cqitm66u4n62id8eiqqvtkr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.qr",
+            "certificate_hash": "8e5c222c0b3cd510bfe2d2e47e2c4f9bf727bbaf"
+          }
+        },
+        {
+          "client_id": "527481817552-lqgeirmto2853sg6mf2q9mo5s373uksf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCV2lE1gbF9Jql5PDNE_y8G3mArI_MjYEs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "527481817552-lqgeirmto2853sg6mf2q9mo5s373uksf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
