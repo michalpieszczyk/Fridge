@@ -4,6 +4,7 @@ Android Studio – Java
 
 YourFridge - Zarządzanie stanem produktów w twojej lodówce
 
+
 Aplikacja zintegrowana z zapleczem google firebase. Proste UI, Funkcje włóż przedmiot do lodowki, zabierz przedmiot z lodówki, podejrzyj stan mojej lodówki. 
 
 Klient (telefon) rozkodowuje kod kreskowy na cyfry I operuje na tych rekordach w bazie.
@@ -29,4 +30,7 @@ Atrybuty tabeli lodowka:
 data kod
 
 		
-
+AKTUALIZACJA 13.06 
+TODO: 
+Usuwanie produktów z bazy (zmiana planów, chcialbym to zrobić z wykorzystaniemwidoku produktów - przytrzymać na pozycję i opcja usuń)
+Wyświetlanie pozostałych wartości z tabeli o produkcie (w tej chwili tylko nazwa, był problem bo nie chciało zadziałać w AletrDialog)
