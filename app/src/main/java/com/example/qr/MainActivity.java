@@ -1,5 +1,6 @@
 package com.example.qr;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +10,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,8 +26,10 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -36,9 +41,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected Button refreshBtn;
     protected Date obecnaData;
     protected String zeskanowanyKod;
+    protected Produkt produkt;
+
+    ListView listViewMembers;
+
+    List<Member> memberList;
 
     TextView a,b,c,d;
     Member member;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +65,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         refreshBtn = findViewById(R.id.refreshBtn);
         refreshBtn.setOnClickListener(this);
 
+        listViewMembers = (ListView) findViewById(R.id.listViewMember);
+
+        memberList = new ArrayList<>();
+
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DatabaseReference myRef = database.getReference("Stan");
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                memberList.clear();
+                for(DataSnapshot memberSnapshot: dataSnapshot.getChildren()){
+                    Member member = memberSnapshot.getValue(Member.class);
+
+                    memberList.add(member);
+                }
+
+                StanList adapter = new StanList(MainActivity.this, memberList);
+                listViewMembers.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 
 
     @Override

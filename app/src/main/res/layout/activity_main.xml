@@ -31,4 +31,9 @@
         android:text="Odśwież liste"
         android:textSize="28sp" />
 
+    <ListView
+        android:id="@+id/listViewMember"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </RelativeLayout>
