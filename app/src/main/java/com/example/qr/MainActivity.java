@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected Button refreshBtn;
     protected Date obecnaData;
     protected String zeskanowanyKod;
-    protected Produkt produkt;
+    //protected Produkt produkt;
 
     ListView listViewMembers;
 
@@ -130,10 +130,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setMessage(result.getContents());
                     zeskanowanyKod = result.getContents();
-                    builder.setTitle("Wynik Skanowania  to: ");
 
-                    DatabaseReference myRef = database.getReference("Produkty");
-                    //myRef.addListenerForSingleValueEvent(valueEventListener);
+                  builder.setTitle("Wynik Skanowania  to: ");
+
+
+                    DatabaseReference myRef = database.getInstance().getReference("Produkty");
+                    DatabaseReference myRef1 = myRef.child(zeskanowanyKod);
+                    DatabaseReference myRefnazwa = myRef1.child("nazwa");
+                    DatabaseReference myRefgramatura = myRef1.child("gramatura");
+
+                    myRefnazwa.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            Toast.makeText(getApplicationContext(),"======="+dataSnapshot.getValue(String.class),Toast.LENGTH_LONG).show();
+                            
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        };
+                    });
 
 
 

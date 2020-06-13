@@ -9,20 +9,20 @@
 
     <TextView
         android:id="@+id/textViewNazwa"
-        android:layout_width="388dp"
-        android:layout_height="28dp"
+        android:layout_width="319dp"
+        android:layout_height="29dp"
         android:text="TextView"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="9dp" />
+        tools:layout_editor_absoluteY="8dp" />
 
     <TextView
         android:id="@+id/textViewData"
-        android:layout_width="382dp"
-        android:layout_height="22dp"
+        android:layout_width="303dp"
+        android:layout_height="27dp"
         android:layout_marginTop="3dp"
         android:text="TextView"
         app:layout_constraintTop_toBottomOf="@+id/textViewNazwa"
-        tools:layout_editor_absoluteX="16dp" />
+        tools:layout_editor_absoluteX="59dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
