@@ -41,13 +41,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected Button refreshBtn;
     protected Date obecnaData;
     protected String zeskanowanyKod;
-    //protected Produkt produkt;
+    protected Produkt produkt;
 
     ListView listViewMembers;
 
     List<Member> memberList;
 
     TextView a,b,c,d;
+
     Member member;
 
 
@@ -127,12 +128,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             {
                 if (result.getContents() != null)
                 {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setMessage(result.getContents());
                     zeskanowanyKod = result.getContents();
-
-                  builder.setTitle("Wynik Skanowania  to: ");
-
 
                     DatabaseReference myRef = database.getInstance().getReference("Produkty");
                     DatabaseReference myRef1 = myRef.child(zeskanowanyKod);
@@ -142,9 +138,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     myRefnazwa.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
+                            Toast.makeText(getApplicationContext(),"Nazwa: "+dataSnapshot.getValue(String.class),Toast.LENGTH_LONG).show();
 
-                            Toast.makeText(getApplicationContext(),"======="+dataSnapshot.getValue(String.class),Toast.LENGTH_LONG).show();
-                            
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        };
+                    });
+
+                    myRefgramatura.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            //Toast.makeText(getApplicationContext(),"Gramatura: "+dataSnapshot.getValue(String.class),Toast.LENGTH_LONG).show();
                         }
 
                         @Override
@@ -153,54 +159,64 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     });
 
 
-
-
-
-
-
-                    builder.setPositiveButton("Dodaj do lodówki", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            member = new Member();
-
-                            DatabaseReference myRef = database.getReference("Stan");
-                            Date dt = new Date();
-                            SimpleDateFormat simpleDate =  new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
-                            String strDt = simpleDate.format(dt);
-
-                            member.setKodKreskowy(zeskanowanyKod);
-                            member.setObecnaData(strDt);
-
-                            myRef.push().setValue(member);
-
-                            Toast.makeText(getApplicationContext(),"Pomyślnie dodano produkt do lodówki",Toast.LENGTH_LONG).show();
-
-                            //myRef.child(strDt).setValue(zeskanowanyKod);
-
-                        }
-                    }).setNegativeButton("Zabierz z lodówki", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                            DatabaseReference myRef = database.getReference("Stan");
-                            //DatabaseReference myRef = database.getReference("Stan");
-
-
-
-                        }
-                    });
-
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
                 }
                 else {
                     Toast.makeText(this, "Brak Wynikow", Toast.LENGTH_LONG).show();
                 }
+
+
             }
             else{
                 super.onActivityResult(requestCode, resultCode, data);
             }
 
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("KOD: "+zeskanowanyKod);
+            builder.setCancelable(true);
+
+
+            builder.setPositiveButton("Dodaj do lodówki", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    member = new Member();
+
+                    DatabaseReference myRef = database.getReference("Stan");
+                    Date dt = new Date();
+                    SimpleDateFormat simpleDate =  new SimpleDateFormat("yyyy.MM.dd G 'at' HH:mm:ss z");
+                    String strDt = simpleDate.format(dt);
+
+                    member.setKodKreskowy(zeskanowanyKod);
+                    member.setObecnaData(strDt);
+
+                    myRef.push().setValue(member);
+
+                    Toast.makeText(getApplicationContext(),"Pomyślnie dodano produkt do lodówki",Toast.LENGTH_LONG).show();
+
+                    //myRef.child(strDt).setValue(zeskanowanyKod);
+
+                }
+            }).setNegativeButton("Zabierz z lodówki", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                    DatabaseReference myRef = database.getReference("Stan");
+                    //DatabaseReference myRef = database.getReference("Stan");
+
+                }
+            });
+
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            //Toast.makeText(getApplicationContext(),"Nazwa: "+pnazwa,Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(),"Nazwa: "+pgramatura,Toast.LENGTH_LONG).show();
+
+
+
+
         }
+
+
 
 }
