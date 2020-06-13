@@ -29,7 +29,8 @@ Atrybuty tabeli produkt:
 Atrybuty tabeli lodowka:
 data kod
 
-		
+
+
 AKTUALIZACJA 13.06 
 TODO: 
 Usuwanie produktów z bazy (zmiana planów, chcialbym to zrobić z wykorzystaniemwidoku produktów - przytrzymać na pozycję i opcja usuń)
